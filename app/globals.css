@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Farvetema – kan tweakes senere */
+:root {
+  --bg: 15 18 25;           
+  --bg-soft: 21 25 34;      
+  --text: 226 232 240;      
+  --muted: 148 163 184;     
+  --brand: 59 130 246;      
+  --ok: 34 197 94;
+  --warn: 234 179 8;
+  --bad: 239 68 68;
+}
+html { color-scheme: dark; }
+body { @apply bg-[rgb(var(--bg))] text-[rgb(var(--text))]; }
+
+.card { @apply rounded-2xl border border-white/10 bg-[rgb(var(--bg-soft))] shadow-lg shadow-black/20; }
+.btn  { @apply inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm hover:bg-white/10; }
+.input{ @apply w-full rounded-lg bg-white/5 px-3 py-2 text-sm outline-none border border-white/10 focus:ring-2 focus:ring-[rgb(var(--brand))]; }
+.badge{ @apply inline-flex items-center rounded-md bg-white/10 px-2 py-0.5 text-xs font-medium text-[rgb(var(--text))]; }
+.link { @apply text-[rgb(var(--brand))] hover:underline; }
