@@ -1,7 +1,3 @@
-export const metadata = { title: "NewsRadar", description: "Nyhedsradar" };
-
-import "./globals.css";
-
 export const metadata = {
   title: "NewsRadar",
   description: "Nyhedsradar",
