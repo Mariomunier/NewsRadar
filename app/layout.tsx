@@ -1,3 +1,6 @@
+import "./globals.css";
+import Shell from "./ui/Shell";
+
 export const metadata = {
   title: "NewsRadar",
   description: "Nyhedsradar",
@@ -6,7 +9,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="da" className="dark">
-      <body>{children}</body>
+      <body>
+        <Shell>{children}</Shell>
+      </body>
     </html>
   );
 }
