@@ -21,3 +21,18 @@ body { @apply bg-[rgb(var(--bg))] text-[rgb(var(--text))]; }
 .input{ @apply w-full rounded-lg bg-white/5 px-3 py-2 text-sm outline-none border border-white/10 focus:ring-2 focus:ring-[rgb(var(--brand))]; }
 .badge{ @apply inline-flex items-center rounded-md bg-white/10 px-2 py-0.5 text-xs font-medium text-[rgb(var(--text))]; }
 .link { @apply text-[rgb(var(--brand))] hover:underline; }
+/* ----- UI-hjælpere ----- */
+.card { @apply rounded-xl border border-white/10 bg-white/5; }
+.btn  { @apply inline-flex items-center rounded-md bg-white/10 px-3 py-2 text-sm hover:bg-white/20; }
+.input{ @apply w-full rounded-md border border-white/10 bg-transparent px-3 py-2 text-sm outline-none; }
+
+/* ----- Ticker (lysavis) ----- */
+@keyframes tickerScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* fordi vi duplikerer indholdet én gang */
+}
+.ticker-wrap { overflow: hidden; position: relative; border-bottom: 1px solid rgba(255,255,255,.08); background: rgba(0,0,0,.18); }
+.ticker-line { display: inline-flex; white-space: nowrap; gap: 24px; padding-block: 8px; animation: tickerScroll 35s linear infinite; will-change: transform; }
+.ticker-item { display: inline-flex; gap: 8px; font-size: 12px; align-items: center; }
+.ticker-change-pos { color: #10b981; } /* grøn */
+.ticker-change-neg { color: #ef4444; } /* rød */
