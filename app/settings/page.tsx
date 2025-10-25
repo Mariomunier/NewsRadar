@@ -1,44 +1,37 @@
 // app/settings/page.tsx
 "use client";
-
 import { useEffect, useState } from "react";
 
-function useTheme() {
-  const [mode, setMode] = useState<"dark" | "light">("dark");
+export default function IndstillingerSide() {
+  const [tema, setTema] = useState<"dark" | "light">("dark");
+  const [email, setEmail] = useState("");
+  const [bruger, setBruger] = useState<string | null>(null);
+
   useEffect(() => {
-    const saved = localStorage.getItem("theme") as "dark" | "light" | null;
-    if (saved) setMode(saved);
-    document.documentElement.classList.toggle("dark", (saved ?? "dark") === "dark");
-    document.documentElement.classList.toggle("light", (saved ?? "dark") === "light");
+    const gemt = (localStorage.getItem("theme") as "dark" | "light") || "dark";
+    setTema(gemt);
+    document.documentElement.classList.toggle("dark", gemt === "dark");
+    document.documentElement.classList.toggle("light", gemt === "light");
+    const u = localStorage.getItem("user_email");
+    if (u) setBruger(u);
   }, []);
-  const toggle = (m: "dark" | "light") => {
-    setMode(m);
+
+  const vælg = (m: "dark" | "light") => {
+    setTema(m);
     localStorage.setItem("theme", m);
     document.documentElement.classList.toggle("dark", m === "dark");
     document.documentElement.classList.toggle("light", m === "light");
   };
-  return { mode, toggle };
-}
-
-export default function SettingsPage() {
-  const [email, setEmail] = useState("");
-  const [user, setUser] = useState<string | null>(null);
-  const { mode, toggle } = useTheme();
-
-  useEffect(() => {
-    const u = localStorage.getItem("user_email");
-    if (u) setUser(u);
-  }, []);
 
   const login = () => {
     if (!email.trim()) return;
     localStorage.setItem("user_email", email.trim());
-    setUser(email.trim());
+    setBruger(email.trim());
     setEmail("");
   };
   const logout = () => {
     localStorage.removeItem("user_email");
-    setUser(null);
+    setBruger(null);
   };
 
   return (
@@ -51,23 +44,16 @@ export default function SettingsPage() {
       <div className="grid gap-4 md:grid-cols-2">
         <div className="card p-4">
           <div className="font-medium mb-2">Login</div>
-          {user ? (
+          {bruger ? (
             <div className="space-y-2">
-              <div className="text-sm">Logget ind som <b>{user}</b></div>
+              <div className="text-sm">Logget ind som <b>{bruger}</b></div>
               <button className="btn" onClick={logout}>Log ud</button>
             </div>
           ) : (
             <div className="space-y-2">
-              <input
-                className="input"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <input className="input" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
               <button className="btn" onClick={login}>Log ind</button>
-              <div className="text-xs text-slate-400">
-                (Demo-login – kan senere erstattes med Supabase Auth)
-              </div>
+              <div className="text-xs text-slate-400">(Demo – kan senere skiftes til Supabase Auth)</div>
             </div>
           )}
         </div>
@@ -75,16 +61,10 @@ export default function SettingsPage() {
         <div className="card p-4">
           <div className="font-medium mb-2">Tema</div>
           <div className="flex items-center gap-2">
-            <button
-              className={`btn ${mode === "dark" ? "ring-2 ring-blue-500" : ""}`}
-              onClick={() => toggle("dark")}
-            >
+            <button className={`btn ${tema === "dark" ? "ring-2 ring-blue-500" : ""}`} onClick={() => vælg("dark")}>
               Mørkt
             </button>
-            <button
-              className={`btn ${mode === "light" ? "ring-2 ring-blue-500" : ""}`}
-              onClick={() => toggle("light")}
-            >
+            <button className={`btn ${tema === "light" ? "ring-2 ring-blue-500" : ""}`} onClick={() => vælg("light")}>
               Lyst
             </button>
           </div>
@@ -93,3 +73,4 @@ export default function SettingsPage() {
     </div>
   );
 }
+
